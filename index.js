@@ -33,7 +33,7 @@ connection.connect(function(err) {
         qs: {
             fields: "id,url,created_at,note",
 
-            limit: 100
+            limit: 3
 
 
         }
@@ -56,9 +56,14 @@ connection.connect(function(err) {
 
             array.push(parsed[i].url);
 
+             var values =  '[' + '\''  +array+ '\'' + ']' + ',';
+              console.log(values);
 
-            var values = "[" +  +array+ + ']' +',';
-            console.log(values);
+
+            // var values = [['https://www.pinterest.com/pin/523895369145026448/'],['https://www.pinterest.com/pin/523895369145026448/']];
+
+
+            //     console.log(values);
             // var sql = "INSERT INTO test (url) VALUES ?";
             // connection.query(sql, [values], function (err, result) {
             //     if (err) throw err;
