@@ -16,7 +16,6 @@ var connection = mysql.createConnection({
 });
 
 
-//Establish MySQL connection
 connection.connect(function(err) {
     if (err)
         throw err;
@@ -24,42 +23,54 @@ connection.connect(function(err) {
         console.log('Connected to MySQL');
         // Start the app when connection is ready
 
-        console.log('Server listening on port 3000');
+
     }
-});
+
 
 // pinterest.api('me').then(console.log);
 
-var options = {
-    qs: {
-        fields: "id,url,created_at,note",
+    var options = {
+        qs: {
+            fields: "id,url,created_at,note",
 
-        limit: 100
+            limit: 100
 
 
-    }
+        }
 
-};
+    };
 // var pins = [];
 // console.log(options.qs.fields);
-pinterest.api('me/pins', options).then(function (json) {
+    pinterest.api('me/pins', options).then(function (json) {
 
-    var stringify = JSON.stringify(json);
-    var parsed = JSON.parse(stringify);
+        var stringify = JSON.stringify(json.data);
+        // console.log(json);
+        var parsed = JSON.parse(stringify);
 
-     var array = [];
 
-     array.push(parsed);
-     console.log(parsed);
 //
 //
-//     for(var i=0; i < parsed.length; i++)
-//         array.push([stringify[i].id,stringify[i].url,stringify[i].created_at,stringify[i].note])
-// console.log(array)
-    // var myArr = JSON.parse(json);
- // console.log(myArr[1]);
+        for (var i = 0; i < parsed.length; i++) {
 
-    // console.log(stringify);
+            var array = [];
+
+            array.push(parsed[i].url);
+
+
+            var values = "[" +  +array+ + ']' +',';
+            console.log(values);
+            // var sql = "INSERT INTO test (url) VALUES ?";
+            // connection.query(sql, [values], function (err, result) {
+            //     if (err) throw err;
+            //     console.log("Number of records inserted: " + result.affectedRows);
+            // });
+
+
+
+        }
+
+    });
+
 });
 
 // pinterest.api('me/boards', options).then(console.log);
@@ -79,7 +90,7 @@ pinterest.api('me/pins', options).then(function (json) {
 //     pinterest.api('pins', {
 //         method: 'POST',
 //         body: {
-//             board: json.data[0].id, // grab the first board from the previous response
+//             board: json.data[0].id,
 //             note: 'this is a test',
 //             link: 'http://gizmodo.com/amazon-prime-music-finally-gets-tunes-from-universal-mu-1733540468',
 //             image_url: 'http://i.kinja-img.com/gawker-media/image/upload/s--4Vp0Ks1S--/1451895062187798055.jpg'
