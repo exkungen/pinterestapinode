@@ -33,7 +33,7 @@ connection.connect(function(err) {
         qs: {
             fields: "id,url,created_at,note",
 
-            limit: 3
+            limit: 1
 
 
         }
@@ -56,19 +56,23 @@ connection.connect(function(err) {
 
             array.push(parsed[i].url);
 
-             var values =  '[' + '\''  +array+ '\'' + ']' + ',';
+
+             var values =  '[' + '\''  +array+ '\'' + ']' +',';
+
+
+            // var splice = array.splice(0 , 999 , "[","]");
               console.log(values);
 
 
             // var values = [['https://www.pinterest.com/pin/523895369145026448/'],['https://www.pinterest.com/pin/523895369145026448/']];
 
 
-            //     console.log(values);
-            // var sql = "INSERT INTO test (url) VALUES ?";
-            // connection.query(sql, [values], function (err, result) {
-            //     if (err) throw err;
-            //     console.log("Number of records inserted: " + result.affectedRows);
-            // });
+
+            var sql = "INSERT INTO test (url) VALUES =" +mysql.escape(values);
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("Number of records inserted: " + result.affectedRows);
+            });
 
 
 
