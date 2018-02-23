@@ -37,14 +37,15 @@ connection.connect(function(err) {
     };
 
     pinterest.api('me/pins', options).then(function (json) {
-
+         console.log("Requesting api call");
+         console.log("API call succesfully made");
         var stringify = JSON.stringify(json.data);
         var parsed = JSON.parse(stringify);
 
 
 
         for (var i = 0; i < parsed.length; i++) {
-
+          console.log("Querying data into database");
             var sql = "INSERT INTO test (url) VALUES (?)";
             connection.query(sql, parsed[i].url,  function (err, result ){
                 if (err) throw err;
