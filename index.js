@@ -1,5 +1,5 @@
 var PDK = require('node-pinterest');
-var pinterest = PDK.init('');
+var pinterest = PDK.init('AV5nkJsfoYv0-5wgrzwCUwTpVuNHFRVJ4QjNuH5EuIIz3IBGzgAAAAA');
 var mysql = require('mysql');
 
 
@@ -29,7 +29,7 @@ connection.connect(function(err) {
     var options = {
         qs: {
             fields: "id,url,created_at,note",
-            limit: 100
+            limit: 5
 
 
         }
@@ -46,10 +46,13 @@ connection.connect(function(err) {
 
         for (var i = 0; i < parsed.length; i++) {
           console.log("Querying data into database");
-            var sql = "INSERT INTO test (url) VALUES (?)";
-            connection.query(sql, parsed[i].url,  function (err, result ){
+          var data = [
+              [parsed[i].url,parsed[i].id]
+          ];
+            var sql = "INSERT INTO test (url,ss_id) VALUES ?";
+            connection.query(sql, [data],  function (err, result,fields ){
                 if (err) throw err;
-                console.log("Number of records inserted: " + result.affectedRows);
+                console.log(result);
             })
 
 
