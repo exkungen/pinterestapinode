@@ -1,5 +1,5 @@
 var PDK = require('node-pinterest');
-var pinterest = PDK.init('AV5nkJsfoYv0-5wgrzwCUwTpVuNHFRVJ4QjNuH5EuIIz3IBGzgAAAAA');
+var pinterest = PDK.init('');
 var mysql = require('mysql');
 
 
